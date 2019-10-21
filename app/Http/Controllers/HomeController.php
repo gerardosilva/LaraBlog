@@ -15,7 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(3)->withPath('page/');
+        $posts = Post::paginate(3)->withPath('/posts/');
+        return view('home', ['posts' => $posts]);
+    }
+
+    public function page($page){
+        $posts = Post::paginate(3)->withPath('/posts/');
         return view('home', ['posts' => $posts]);
     }
 }

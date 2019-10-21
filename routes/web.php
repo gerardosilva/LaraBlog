@@ -13,5 +13,8 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::redirect('/', '/posts');
+Route::get('/posts', 'HomeController@index')->name('home');
 
+Route::get('/posts/{page}', 'HomeController@page');
+Route::get('/post/{id}', 'PostsController@show');
