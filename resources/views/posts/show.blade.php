@@ -9,8 +9,14 @@
                 {{$post->body}}
             </article>
             <div>
-               Created by <a href="/user/{{$post->author->username}}">{{$post->author->name}}</a>
+               Created by <a href="/author/{{$post->author->username}}">{{$post->author->name}}</a>
                         at {{$post->created_at->diffForHumans()}}
+            </div>
+            <div>
+                @if ( Auth::user()->id == $post->author_id)   
+                        <div><a href="/post/{{$post->id}}/edit">Edit</a></div>
+                        <div><a href="/post/{{$post->id}}/delete">Delete</a></div>   
+                     @endif 
             </div>
         </div>
     </div>

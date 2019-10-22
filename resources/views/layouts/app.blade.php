@@ -22,7 +22,12 @@
 <body>
     <div id="app">
         @include('includes.header')
-
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <strong>{{ $message }}</strong>
+            </div>
+        @endif
         <main class="py-4">
             @yield('content')
         </main>

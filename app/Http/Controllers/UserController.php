@@ -16,8 +16,9 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $posts = $user->posts->take(10);
 
-        return view('user.profile', ['user' => $user]);
+        return view('user.profile', ['user' => $user, 'posts'=>$posts]);
     }
 
 
@@ -30,7 +31,9 @@ class UserController extends Controller
     public function show($username)
     {
         $user = User::where('username', $username)->first();
-        return view('user.profile', ['user' => $user]);
+        $posts = $user->posts->take(10);
+
+        return view('user.profile', ['user' => $user, 'posts'=>$posts]);
     }
 
     /**

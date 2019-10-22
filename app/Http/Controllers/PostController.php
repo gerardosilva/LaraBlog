@@ -45,7 +45,7 @@ class PostController extends Controller
                 'author_id' => auth()->id(),
             ]);
 
-            return redirect("/post/create")->with([
+            return redirect("/posts")->with([
                 'status' => 'success',
                 'message' => 'Your post was published successfully',
             ]);
@@ -60,7 +60,6 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -72,34 +71,48 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+       $post = Post::find($id); 
+       return view('posts.edit', ['post'=> $post]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request)
     {
-        //
+        $post = Post::find(request('id'));
+        $post->title = request('title');
+        $post->body = request('body');
+        $slug = Str::slug(request('title'), '-');
+        $post->slug = $slug;
+        $post->save();
+
+        return redirect("/posts")->with([
+            'status' => 'success',
+            'message' => 'Your post was edited successfully',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+         $post = Post::find(request('id'));
+         $post->delete();
+
+         return redirect("/posts")->with([
+            'status' => 'success',
+            'message' => 'Your post was deleted successfully',
+        ]);
     }
 }
