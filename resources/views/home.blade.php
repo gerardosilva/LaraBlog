@@ -10,10 +10,10 @@
 
                     <div class="card-body text-center">
                         {{ substr(strip_tags($post->body), 0, 50) }}
-                        <a href="{{$post->slug}}"> Read More</a>
+                        <a href="/post/{{$post->slug}}"> Read More</a>
                     </div>
                     <div class="card-footer text-center">
-                    Created by <a href="{{$post->author->username}}">{{$post->author->name}}</a>
+                    Created by <a href="/user/{{$post->author->username}}">{{$post->author->name}}</a>
                         at {{$post->created_at->diffForHumans()}}
                     </div>        
                 </div>
